@@ -1,0 +1,23 @@
+[
+  {
+    "document": "Electrical Training",
+    "file": "ELECTRICAL_TRAINING.pdf",
+    "pages": 234,
+    "total_chars": 109185,
+    "low_text_pages": 7
+  },
+  {
+    "document": "Pipe Jacking",
+    "file": "PIPE_JACKING.pdf",
+    "pages": 280,
+    "total_chars": 59520,
+    "low_text_pages": 36
+  },
+  {
+    "document": "Drawings & Part Lists",
+    "file": "DRAWINGS_AND_PART_LISTS.pdf",
+    "pages": 242,
+    "total_chars": 68267,
+    "low_text_pages": 3
+  }
+]

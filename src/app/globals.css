@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f6f6f4;
+  --surface: #ffffff;
+  --surface-2: #efefec;
+  --foreground: #16181d;
+  --muted: #5f6470;
+  --border: #dedcd6;
+  --accent: #e0731a;
+  --accent-strong: #b85a0f;
+  --accent-soft: #fdebdc;
+  --mark: #fff0a8;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #121316;
+    --surface: #1b1d22;
+    --surface-2: #23262c;
+    --foreground: #eceef2;
+    --muted: #9aa1ad;
+    --border: #30343c;
+    --accent: #f08a35;
+    --accent-strong: #ffa552;
+    --accent-soft: #3a2a1c;
+    --mark: #5a4a10;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-mark: var(--mark);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+mark {
+  background: var(--mark);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+/* Markdown inside chat answers */
+.prose-answer > * + * { margin-top: 0.6rem; }
+.prose-answer ul { list-style: disc; padding-left: 1.25rem; }
+.prose-answer ol { list-style: decimal; padding-left: 1.25rem; }
+.prose-answer li + li { margin-top: 0.25rem; }
+.prose-answer strong { font-weight: 600; }
+.prose-answer h1, .prose-answer h2, .prose-answer h3 { font-weight: 600; margin-top: 1rem; }
+.prose-answer code { font-family: var(--font-mono); font-size: 0.9em; background: var(--surface-2); padding: 0 0.25rem; border-radius: 3px; }
+.prose-answer table { border-collapse: collapse; font-size: 0.9em; }
+.prose-answer td, .prose-answer th { border: 1px solid var(--border); padding: 0.2rem 0.5rem; }
