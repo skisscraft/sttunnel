@@ -5,7 +5,9 @@ Built from the Phase 2 brief in `docs/PHASE_2_BUILD_BRIEF.md`. "TBM Academy" is 
 
 - **Manual** — full-text + semantic search across all 756 digitized pages, filterable by document, every hit links to the page it came from.
 - **Ask** — chatbot grounded only in the ingested pages; every answer cites document + page and says so when the material does not cover a question.
-- **Course / Troubleshoot** — navigation placeholders ("coming soon"), no functionality yet by design.
+- **Course** — a 12-module beginner track built from the three decks: what to read, key points with source pages, and a short quiz per module. Progress is saved per-browser (`localStorage`), no accounts.
+- **Help** — a plain-language user guide to the app itself.
+- **Troubleshoot** — navigation placeholder ("coming soon"), no functionality yet by design (no fault-catalogue content exists to build it from).
 
 ## Stack
 
@@ -17,7 +19,9 @@ supabase/migrations/      schema: training_pages, training_chunks (pgvector + ts
 scripts/                  db:migrate, ingest, embed (run with tsx, work against any Postgres URL)
 src/lib/                  db pool, chunking, embeddings, search, rag (prompt + context), llm (providers)
 src/app/api/              /search, /chat (streaming NDJSON), /page, /health
-src/app/(pages)           /manual, /manual/[doc]/[page] (reader), /ask, /course, /troubleshoot
+src/content/               curated course outline + beginner-track modules (edit this file to change the course)
+src/app/(pages)           /manual (search), /manual/[doc] (document contents), /manual/[doc]/[page] (reader),
+                          /ask, /course (track), /course/[slug] (module + quiz), /help, /troubleshoot
 ```
 
 ## Setup

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const items = [
   { href: "/manual", label: "Manual", icon: SearchIcon },
   { href: "/ask", label: "Ask", icon: ChatIcon },
-  { href: "/course", label: "Course", icon: CourseIcon, soon: true },
+  { href: "/course", label: "Course", icon: CourseIcon },
   { href: "/troubleshoot", label: "Troubleshoot", icon: WrenchIcon, soon: true },
 ];
 
@@ -27,6 +27,7 @@ export function Nav() {
               <span className="text-[11px] text-muted truncate">Herrenknecht Academy material · internal</span>
             </span>
           </Link>
+          <div className="flex items-center gap-1">
           <nav className="hidden md:flex items-center gap-1">
             {items.map((it) => (
               <Link
@@ -41,6 +42,17 @@ export function Nav() {
               </Link>
             ))}
           </nav>
+          <Link
+            href="/help"
+            aria-label="Help and user guide"
+            title="Help"
+            className={`inline-flex h-8 w-8 items-center justify-center rounded-full border text-sm font-semibold ${
+              isActive("/help") ? "border-accent bg-accent-soft text-accent-strong" : "border-border text-muted hover:text-foreground"
+            }`}
+          >
+            ?
+          </Link>
+          </div>
         </div>
       </header>
 

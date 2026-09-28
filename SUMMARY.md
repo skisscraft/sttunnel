@@ -15,9 +15,11 @@ Code is pushed to `skisscraft/sttunnel`, branch `claude/phase-2-build-brief-dxel
 | Pipeline | `npm run db:migrate`, `npm run ingest`, `npm run embed` (idempotent). Embeddings: `gemini-embedding-001`, 768 dims; 698 chunks embedded, the 60 pages with under 20 characters of OCR text are flagged `low_text` and left keyword-only. Vectors are cached in `data/tbm_training_embeddings.jsonl` (5.6 MB), so loading Supabase needs no embedding calls. |
 | Manual | `/manual`: search box, document filter chips (All / Electrical Training / Pipe Jacking / Drawings & Part Lists), Smart (hybrid) vs Exact (keyword) toggle, results with document badge, page number and highlighted snippet, state kept in the URL. Each result opens `/manual/<doc>/<page>`, a reader showing the raw OCR text with prev/next page navigation and a low-text notice where relevant. |
 | Ask | `/ask`: streaming chat grounded only in retrieved chunks (top 8 per question). The model must cite `[n]`; the UI renders those as chips that link to the cited page and lists the sources under each answer. Off-topic questions get "The training material provided does not cover…". Optional per-document scoping. Multi-turn (last 6 turns kept). |
-| Course / Troubleshoot | Nav items with a "coming soon" page each, no functionality (per brief). |
+| Course | Beyond the brief's Phase 2 scope: a 12-module beginner track (`src/content/curriculum.ts`) built by reading the three decks — each module names the pages to read, gives key points cited to a page, and a short multiple-choice check. `/manual/<doc>` shows a curated table of contents per document, also linked from the relevant modules. Progress is stored in the browser (`localStorage`), no accounts. Default chat model switched to `claude-sonnet-5` per your last instruction. |
+| Help | New: a plain-language in-app user guide (`/help`) explaining Manual, Ask, Course and what the app does not do. Linked from a "?" icon in the header. |
+| Troubleshoot | Still a "coming soon" placeholder — no fault-catalogue content exists to build it from. |
 | API | `GET /api/search`, `POST /api/chat` (NDJSON stream), `GET /api/page`, `GET /api/health` (deploy check). |
-| Chat model | Claude via `@anthropic-ai/sdk` (`claude-opus-5`, adaptive thinking, effort `medium`, streaming, cached system prompt). With no Anthropic key the app falls back to `gemini-2.5-flash` automatically so it still works. `ANTHROPIC_MODEL`, `ANTHROPIC_EFFORT`, `CHAT_PROVIDER` are configurable. |
+| Chat model | Claude via `@anthropic-ai/sdk` (`claude-sonnet-5` (default; switched from `claude-opus-5` per your instruction), adaptive thinking, effort `medium`, streaming, cached system prompt). With no Anthropic key the app falls back to `gemini-2.5-flash` automatically so it still works. `ANTHROPIC_MODEL`, `ANTHROPIC_EFFORT`, `CHAT_PROVIDER` are configurable. |
 | Ops | README with setup/deploy steps, `.env.example`, GitHub Actions CI (lint, typecheck, build), `docs/screenshots/`. |
 
 ## Verification done
@@ -43,7 +45,6 @@ Code is pushed to `skisscraft/sttunnel`, branch `claude/phase-2-build-brief-dxel
 
 ## Things for your review
 
-- **Chat model choice / cost.** Defaulted to `claude-opus-5` as the Claude default. For a high-volume internal tool, `ANTHROPIC_MODEL=claude-sonnet-5` is a reasonable cheaper setting; one env var change.
 - **Prompt tuned on the fallback model only.** After setting the Anthropic key, try a few questions on the Ask page and check the citation behaviour; the system prompt is in `src/lib/rag.ts`.
 - **Embedding provider is Gemini, not Claude/Voyage.** The Claude API has no embeddings endpoint and Gemini was the only embedding key available. Swapping providers means changing `src/lib/embeddings.ts` and the `vector(768)` width, then `npm run embed -- --force`.
 - **Low-text threshold.** Pages under 20 non-whitespace OCR characters are treated as photo slides (60 pages; the manifest counted 46 with its own threshold). They still show up in keyword search and the reader, just not in semantic results.

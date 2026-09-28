@@ -3,7 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 export type ChatTurn = { role: "user" | "assistant"; content: string };
 export type Provider = "anthropic" | "gemini";
 
-export const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || "claude-opus-5";
+export const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || "claude-sonnet-5";
 export const GEMINI_CHAT_MODEL = process.env.GEMINI_CHAT_MODEL || "gemini-2.5-flash";
 
 /**
